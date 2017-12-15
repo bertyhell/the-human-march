@@ -1,7 +1,5 @@
 {
-  graphs: {
-    "transistors": {
-      tags: ["transistors", "chip", "Moore", "Moore's Law"]
-    }
+  "transistors": {
+    "tags": ["transistors", "chip", "Moore", "Moore's Law"]
   }
 }
