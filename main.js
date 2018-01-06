@@ -1,49 +1,55 @@
-window.addEventListener('DOMContentLoaded', function() {
-  var graphsContainer = document.querySelector('.graphs');
+google.charts.load('current', {
+  'packages': ['corechart']
+});
 
-  fetch('graphs.json')
+window.addEventListener('DOMContentLoaded', function() {
+  fetch('charts.json')
     .then(function(response) {
       return response.json();
     })
-    .then(function(graphs) {
-      for (var graphName in graphs) {
-        if (graphs.hasOwnProperty(graphName)) {
-          var canvas = document.createElement('canvas');
-          var ctx = canvas.getContext('2d');
-          fetch('graphs/' + graphName + '.json')
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(graphDetails) {
-              new Chart(ctx, {
-                type: 'line',
-                data: graphDetails.data,
-                options: {
-                  "scales": {
-                    "xAxes": [{
-                      "type": "linear",
-                      "position": "bottom"
-                    }],
-                    "yAxes": [{
-                      "type": "logarithmic",
-                      "display": true,
-                      "id": "percentage",
-                      "scaleLabel": {
-                        "display": true,
-                        "labelString": 'Transistors',
-                      },
-                      "ticks": {
-                        "callback": function(tick, index, ticks) {
-                          return tick.toLocaleString();
-                        }
-                      }
-                    }]
-                  }
-                }
-              });
-              graphsContainer.appendChild(canvas);
-            });
-        }
-      }
+    .then(function(charts) {
+      google.charts.setOnLoadCallback(function() {
+        drawCharts(charts);
+      })      
     });
 });
+
+function drawCharts(charts) {
+  var chartsContainer = document.querySelector('.charts');
+  
+  for (var chartName in charts) {
+    if (charts.hasOwnProperty(chartName)) {
+      fetch('charts/' + chartName + '.json')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(chartDetails) {
+          drawChart(chartDetails, chartsContainer);
+        });
+    }
+  }
+}
+
+function drawChart(chartDetails, chartsContainer) {
+  var data = google.visualization.arrayToDataTable(chartDetails.data);
+
+  var options = {
+    title: chartDetails.title,
+    width: '100%',
+    height: '100%',
+    hAxis: {
+      title: chartDetails.data[0][0].label
+    },
+    vAxis: {
+      title: chartDetails.data[0][1].label,
+      logScale: true
+    },
+    legend: 'none'
+  };
+
+  var chartDiv = document.createElement('div');
+  chartDiv.className = 'chart';
+  chartsContainer.appendChild(chartDiv);
+  var chart = new google.visualization.ScatterChart(chartDiv);
+  chart.draw(data, options);
+}
