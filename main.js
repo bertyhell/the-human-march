@@ -1,3 +1,5 @@
+var chartsData;
+
 google.charts.load('current', {
   'packages': ['corechart']
 });
@@ -9,16 +11,21 @@ window.addEventListener('DOMContentLoaded', function() {
     })
     .then(function(charts) {
       google.charts.setOnLoadCallback(function() {
-        drawCharts(charts);
+        chartsData = charts;
+        drawCharts();
       })
     });
+  
+  var debouncedDrawCharts = _.debounce(drawCharts, 500);
+  window.addEventListener('resize', debouncedDrawCharts);
 });
 
-function drawCharts(charts) {
+function drawCharts() {
   var chartsContainer = document.querySelector('.charts');
+  chartsContainer.innerHTML = '';
 
-  for (var chartName in charts) {
-    if (charts.hasOwnProperty(chartName)) {
+  for (var chartName in chartsData) {
+    if (chartsData.hasOwnProperty(chartName)) {
       fetch('charts/' + chartName + '.json')
         .then(function(response) {
           return response.json();
@@ -54,14 +61,9 @@ function drawChart(chartDetails, chartsContainer) {
     },
     vAxis: {
       title: chartDetails.data[0][1].label,
-      logScale: true
+//       logScale: true
     },
-    legend: 'none',
-    //     trendlines: { 
-    //       0: {
-    //         type: 'exponential'
-    //       }
-    //     }
+    legend: 'none'
   };
 
   if (jsonData[0][0].id === 'year') {

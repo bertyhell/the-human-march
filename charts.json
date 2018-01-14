@@ -7,5 +7,14 @@
   },
   "fusion-reactor-performance": {
     "tags": ["fusion", "energy", "production", "technology", "nuclear"]
+  },
+  "rocket-launches-per-year": {
+    "tags": ["rocket", "space", "spacex", "orbit", "technology"]
+  },
+  "co2-emissions": {
+    "tags": ["co2", "environment", "emissions", "bad", "pollution"]
+  },
+  "world-population": {
+    "tags": ["world", "population", "number", "people", "humans"]
   }
 }
