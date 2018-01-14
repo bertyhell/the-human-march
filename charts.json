@@ -1,5 +1,11 @@
 {
-  "transistors": {
+  "transistors-per-chip": {
     "tags": ["transistors", "chip", "Moore", "Moore's Law"]
+  },
+  "genome-sequencing-cost": {
+    "tags": ["genome", "DNA", "biology", "sequencing", "medical"]
+  },
+  "fusion-reactor-performance": {
+    "tags": ["fusion", "energy", "production", "technology", "nuclear"]
   }
 }

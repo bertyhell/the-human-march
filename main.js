@@ -10,13 +10,13 @@ window.addEventListener('DOMContentLoaded', function() {
     .then(function(charts) {
       google.charts.setOnLoadCallback(function() {
         drawCharts(charts);
-      })      
+      })
     });
 });
 
 function drawCharts(charts) {
   var chartsContainer = document.querySelector('.charts');
-  
+
   for (var chartName in charts) {
     if (charts.hasOwnProperty(chartName)) {
       fetch('charts/' + chartName + '.json')
@@ -31,7 +31,19 @@ function drawCharts(charts) {
 }
 
 function drawChart(chartDetails, chartsContainer) {
-  var data = google.visualization.arrayToDataTable(chartDetails.data);
+  let jsonData = chartDetails.data;
+
+  // Convert json date string to javascript date object
+  if (jsonData[0][0].type === "date") {
+    for (var i = 1; i < jsonData.length; i++) {
+      jsonData[i][0] = moment(jsonData[i][0]).toDate();
+    }
+  }
+  if (jsonData[0][1].type === "date") {
+    for (var j = 1; j < jsonData.length; j++) {
+      jsonData[j][0] = moment(jsonData[j][0]).toDate();
+    }
+  }
 
   var options = {
     title: chartDetails.title,
@@ -44,9 +56,23 @@ function drawChart(chartDetails, chartsContainer) {
       title: chartDetails.data[0][1].label,
       logScale: true
     },
-    legend: 'none'
+    legend: 'none',
+    //     trendlines: { 
+    //       0: {
+    //         type: 'exponential'
+    //       }
+    //     }
   };
 
+  if (jsonData[0][0].id === 'year') {
+    options.hAxis.format = '0';
+  }
+  if (jsonData[0][1].id === 'year') {
+    options.vAxis.format = '0';
+  }
+
+  // Add the chart to dom and initialize it
+  var data = google.visualization.arrayToDataTable(jsonData);
   var chartDiv = document.createElement('div');
   chartDiv.className = 'chart';
   chartsContainer.appendChild(chartDiv);

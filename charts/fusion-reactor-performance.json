@@ -1,0 +1,29 @@
+{
+  "title": "Fusion reactor performance",
+  "data": [
+    [{
+        "id": "year",
+        "label": "Year",
+        "type": "number"
+      },
+      {
+        "id": "triple-product",
+        "label": "Triple product (temp x density x confinement time) 10^20 m^-3.KeV.s",
+        "type": "number"
+      },
+      {
+        "id": "name",
+        "label": "Reactor/experiment name",
+        "type": "string",
+        "role": "tooltip"
+      }
+    ],
+    [1968, 0.002, "T3"],
+    [1984, 0.95, "JET"],
+    [2040, 800, "ITER"]
+  ],
+  "sources": [{
+    "link": "https://energyfutureslab.wordpress.com/2016/10/07/nuclear-fusion-what-will-a-fusion-power-plant-look-like/",
+    "title": "Energy Futures Lab"
+  }]
+}
