@@ -1,2 +1,13 @@
-language: javascript
+language: node_js
+
+node_js:
+  - "6"
+
+install:
+  - npm set progress=false
+  - npm install
+
+script:
+  - npm run lint
+
 after_success: "find . -type f -exec curl -u $FTP_USER:$FTP_PASSWORD --ftp-create-dirs -T {} ftp://files.000webhost.com/the-human-march/{} \;"

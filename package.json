@@ -1,0 +1,29 @@
+{
+  "name": "the-human-march",
+  "version": "0.0.1",
+  "description": "Website containing graphs for all possible progress indicators of human technological progress",
+  "main": "index.html",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bertyhell/the-human-march.git"
+  },
+  "keywords": [
+    "progress",
+    "human",
+    "exponential",
+    "graphs",
+    "visual"
+  ],
+  "author": "Bert Verhelst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bertyhell/the-human-march/issues"
+  },
+  "homepage": "https://github.com/bertyhell/the-human-march#readme",
+  "devDependencies": {
+    "eslint": "^4.18.0"
+  }  
+}
