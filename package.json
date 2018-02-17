@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/bertyhell/the-human-march#readme",
   "devDependencies": {
-    "eslint": "^4.18.0"
+    "eslint": "^4.18.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.8.0"
   }  
 }
