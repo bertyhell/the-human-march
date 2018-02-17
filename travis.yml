@@ -1,2 +1,2 @@
 language: javascript
-after_success: "curl --ftp-create-dirs -T uploadfilename -u $FTP_USER:$FTP_PASSWORD ftp://files.000webhost.com/the-human-march"
+after_success: "find . -type f -exec curl -u $FTP_USER:$FTP_PASSWORD --ftp-create-dirs -T {} ftp://files.000webhost.com/the-human-march/{} \;"
